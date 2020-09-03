@@ -33,7 +33,8 @@ class ISelenium(unittest.TestCase):
             print('使用无界面方式运行')
             chrome_options.add_argument("--headless")
 
-        self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
+        self.driver = webdriver.Remote(executable_path=config.get('driver', 'chrome_driver'),
+                                       command_executor=config.get('url', 'selenium-url'),
                                        options=chrome_options)
 
     def test_webui_1(self):
