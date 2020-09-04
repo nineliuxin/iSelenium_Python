@@ -12,7 +12,10 @@ class ISelenium(unittest.TestCase):
     # 读入配置文件
     def get_config(self):
         config = configparser.ConfigParser()
-        config.read(os.path.join(os.environ['HOME'], 'iselenium.ini'))
+        # config.read(os.path.join(os.environ['HOME'], 'iselenium.ini'))
+        print(os.path.abspath('.'))
+        print(os.path.join(os.path.abspath('..'), 'iselenium.ini'))
+        config.read(os.path.join(os.path.abspath('..'), 'iselenium.ini'))
         return config
 
     def tearDown(self):
@@ -33,8 +36,7 @@ class ISelenium(unittest.TestCase):
             print('使用无界面方式运行')
             chrome_options.add_argument("--headless")
 
-        self.driver = webdriver.Remote(executable_path=config.get('driver', 'chrome_driver'),
-                                       command_executor=config.get('url', 'selenium-url'),
+        self.driver = webdriver.Remote(command_executor=config.get('url', 'selenium_url'),
                                        options=chrome_options)
 
     def test_webui_1(self):
